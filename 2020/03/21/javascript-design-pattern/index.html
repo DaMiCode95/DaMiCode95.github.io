@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>javascript设计模式 | 前端之旅</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="五大设计原则S - 单一职责原则 一个程序只做好一件事 如果功能过于复杂就拆分开，每个部分保持独立  O - 开放封闭原则 对扩展开放，对修改封闭 增加需求时，扩展新代码，而非修改已有代码 这是软件设计的终极目标  L - 李氏置换原则 子类能覆盖父类 父类能出现的地方子类就能出现 JS中使用较少（弱类型&amp;继承使用较少）  I - 接口独立原则 保持接口的单一独立，避免出现“胖接口” JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript设计模式">
+<meta property="og:url" content="http://yoursite.com/2020/03/21/javascript-design-pattern/index.html">
+<meta property="og:site_name" content="前端之旅">
+<meta property="og:description" content="五大设计原则S - 单一职责原则 一个程序只做好一件事 如果功能过于复杂就拆分开，每个部分保持独立  O - 开放封闭原则 对扩展开放，对修改封闭 增加需求时，扩展新代码，而非修改已有代码 这是软件设计的终极目标  L - 李氏置换原则 子类能覆盖父类 父类能出现的地方子类就能出现 JS中使用较少（弱类型&amp;继承使用较少）  I - 接口独立原则 保持接口的单一独立，避免出现“胖接口” JS">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://res.cloudinary.com/dsuypttim/image/upload/v1584795065/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847934968763_cb1t50.png">
+<meta property="og:image" content="https://res.cloudinary.com/dsuypttim/image/upload/v1584795792/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_158479576122_m1uagb.png">
+<meta property="og:image" content="https://res.cloudinary.com/dsuypttim/image/upload/v1584796433/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847964203718_dauzuo.png">
+<meta property="og:image" content="https://res.cloudinary.com/dsuypttim/image/upload/v1584796084/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847960769249_btsahw.png">
+<meta property="og:image" content="https://res.cloudinary.com/dsuypttim/image/upload/v1584798445/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847982282641_xkmfjm.png">
+<meta property="og:image" content="https://res.cloudinary.com/dsuypttim/image/upload/v1584798447/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847983969106_kmofhn.png">
+<meta property="article:published_time" content="2020-03-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-21T13:48:21.261Z">
+<meta property="article:author" content="DaMi">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://res.cloudinary.com/dsuypttim/image/upload/v1584795065/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847934968763_cb1t50.png">
+  
+    <link rel="alternate" href="/atom.xml" title="前端之旅" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">前端之旅</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Forever young,Forever full of tears.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-javascript-design-pattern" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/21/javascript-design-pattern/" class="article-date">
+  <time datetime="2020-03-20T16:00:00.000Z" itemprop="datePublished">2020-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript设计模式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="五大设计原则"><a href="#五大设计原则" class="headerlink" title="五大设计原则"></a>五大设计原则</h2><h3 id="S-单一职责原则"><a href="#S-单一职责原则" class="headerlink" title="S - 单一职责原则"></a>S - 单一职责原则</h3><ul>
+<li>一个程序只做好一件事</li>
+<li>如果功能过于复杂就拆分开，每个部分保持独立</li>
+</ul>
+<h3 id="O-开放封闭原则"><a href="#O-开放封闭原则" class="headerlink" title="O - 开放封闭原则"></a>O - 开放封闭原则</h3><ul>
+<li>对扩展开放，对修改封闭</li>
+<li>增加需求时，扩展新代码，而非修改已有代码</li>
+<li>这是软件设计的终极目标</li>
+</ul>
+<h3 id="L-李氏置换原则"><a href="#L-李氏置换原则" class="headerlink" title="L - 李氏置换原则"></a>L - 李氏置换原则</h3><ul>
+<li>子类能覆盖父类</li>
+<li>父类能出现的地方子类就能出现</li>
+<li>JS中使用较少（弱类型&amp;继承使用较少）</li>
+</ul>
+<h3 id="I-接口独立原则"><a href="#I-接口独立原则" class="headerlink" title="I - 接口独立原则"></a>I - 接口独立原则</h3><ul>
+<li>保持接口的单一独立，避免出现“胖接口”</li>
+<li>JS中没有接口（typescript例外），使用较少</li>
+<li>类似于单一职责原则，这里更关注接口</li>
+</ul>
+<h3 id="D-依赖倒置原则"><a href="#D-依赖倒置原则" class="headerlink" title="D - 依赖倒置原则"></a>D - 依赖倒置原则</h3><ul>
+<li>面向接口编程，依赖于抽象而不依赖具体</li>
+<li>使用方只关注接口而不关注具体类的实现</li>
+<li>JS中使用较少（没有接口&amp;弱类型）</li>
+</ul>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><ol>
+<li>创建型：与对选哪个的创建有关<ul>
+<li><code>工厂模式</code>（工厂方法模式、抽象工厂模式、建造者模式）</li>
+<li><code>单例模式</code></li>
+<li><code>原型模式</code></li>
+</ul>
+</li>
+<li>结构型：处理类或对象的组合<ul>
+<li>适配器模式</li>
+<li>装饰器模式</li>
+<li>代理模式</li>
+<li>外观模式</li>
+<li>桥接模式</li>
+<li>组合模式</li>
+<li>享元模式</li>
+</ul>
+</li>
+<li>行为型：对类或对象怎样交互和怎样分配职责进行描述<ul>
+<li>策略模式</li>
+<li>模板方法模式</li>
+<li><code>观察者模式</code></li>
+<li><code>迭代器模式</code></li>
+<li>职责链模式</li>
+<li>命令模式</li>
+<li>备忘录模式</li>
+<li>状态模式</li>
+<li>访问者模式</li>
+<li>中介者模式</li>
+<li>解释器模式</li>
+</ul>
+</li>
+</ol>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><ul>
+<li>系统中被唯一使用</li>
+<li>一个类只有一个实例</li>
+</ul>
+<p>场景</p>
+<ul>
+<li>vuex和redux中的store</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span> </span>&#123;</span><br><span class="line">    login () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'login...'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Singleobject.getInstance = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> instance</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!instace) &#123;</span><br><span class="line">            instace = <span class="keyword">new</span> SingleObject()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instace</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj1 = SingleObject.getInstance()</span><br><span class="line">obj1.login()</span><br><span class="line"><span class="keyword">let</span> obj2 = SingleObject.getInstance()</span><br><span class="line">obj2.login()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj1 === obj2) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p><img src="https://res.cloudinary.com/dsuypttim/image/upload/v1584795065/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847934968763_cb1t50.png" alt="image"></p>
+<ul>
+<li>将new操作单独封装</li>
+<li>遇到new时，就要考虑是否该使用工厂模式</li>
+</ul>
+<p>场景</p>
+<ul>
+<li>jQuery ${‘div’)</li>
+<li>React.createElement</li>
+<li>vue异步组件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (name) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line">    init () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'init'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    fun1 () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'fun1'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    fun2 () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'fun2'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Creator</span> </span>&#123;</span><br><span class="line">    create (name) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Product(name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> creator = <span class="keyword">new</span> Creator()</span><br><span class="line"><span class="keyword">let</span> p = creator.create(<span class="string">'p1'</span>)</span><br><span class="line">p.init()</span><br><span class="line">p.fun1()</span><br></pre></td></tr></table></figure>
+
+<h3 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h3><p><img src="https://res.cloudinary.com/dsuypttim/image/upload/v1584795792/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_158479576122_m1uagb.png" alt="image"></p>
+<ul>
+<li>旧接口格式和使用者不兼容</li>
+<li>中间加一个适配转换接口</li>
+</ul>
+<p>场景</p>
+<ol>
+<li>封装旧接口</li>
+<li>vue computed</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123;</span><br><span class="line">    specificRequest () &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'德国标准的插头'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Target</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> （） &#123;</span><br><span class="line">        <span class="keyword">this</span>.adaptee = <span class="keyword">new</span> Adaptee()</span><br><span class="line">    &#125;</span><br><span class="line">    request () &#123;</span><br><span class="line">        <span class="keyword">let</span> info = <span class="keyword">this</span>.adpatee.specificRequest()</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;info&#125;</span> -&gt; 转换器 -&gt; 中国标准的插头`</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> target = <span class="keyword">new</span> Target()</span><br><span class="line">target.request()</span><br></pre></td></tr></table></figure>
+
+<h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><p><img src="https://res.cloudinary.com/dsuypttim/image/upload/v1584796433/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847964203718_dauzuo.png" alt="image"></p>
+<ul>
+<li>使用者无权访问目标对象</li>
+<li>中间加代理，通过代理做授权和控制</li>
+</ul>
+<p>场景</p>
+<ul>
+<li>网页事件代理</li>
+<li>jQuery $.proxy</li>
+<li>ES6 proxy</li>
+</ul>
+<h3 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h3><p><img src="https://res.cloudinary.com/dsuypttim/image/upload/v1584796084/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847960769249_btsahw.png" alt="image"></p>
+<ul>
+<li>为对象添加新功能</li>
+<li>不改变其原有的结构和功能</li>
+</ul>
+<p>场景</p>
+<ul>
+<li>es7装饰器</li>
+<li>core-decorators</li>
+</ul>
+<h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><p><img src="https://res.cloudinary.com/dsuypttim/image/upload/v1584798445/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847982282641_xkmfjm.png" alt="image"></p>
+<ul>
+<li>发布 &amp; 订阅</li>
+<li>一对多</li>
+</ul>
+<p>场景</p>
+<ul>
+<li>nodejs中：处理http请求；多进程通讯</li>
+<li>vue和React组件生命周期触发</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 状态改变后触发所有观察者</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> () &#123;</span><br><span class="line">    <span class="keyword">this</span>.state = <span class="number">0</span></span><br><span class="line">    <span class="keyword">this</span>.observers = []</span><br><span class="line">  &#125;</span><br><span class="line">  getState () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.state</span><br><span class="line">  &#125;</span><br><span class="line">  setState (state) &#123;</span><br><span class="line">    <span class="keyword">this</span>.state = state</span><br><span class="line">    <span class="keyword">this</span>.notifyAllObservers()</span><br><span class="line">  &#125;</span><br><span class="line">  notifyAllObservers () &#123;</span><br><span class="line">    <span class="keyword">this</span>.observers.forEach(observer = &gt; &#123;</span><br><span class="line">      observer.update()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  attach (observer) &#123;</span><br><span class="line">    <span class="keyword">this</span>.observers.push(observer)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 观察者</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (name, subject) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">    <span class="keyword">this</span>.subject = subject</span><br><span class="line">    <span class="keyword">this</span>.subject.attach(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  update () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> update, state <span class="subst">$&#123;<span class="keyword">this</span>.subject.getState&#125;</span>`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s = <span class="keyword">new</span> Subject()</span><br><span class="line"><span class="keyword">let</span> o1 = <span class="keyword">new</span> Observer(<span class="string">'o1'</span>, s)</span><br><span class="line"></span><br><span class="line">s.setState(<span class="number">1</span>) <span class="comment">// o1 update, state 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> o2 = <span class="keyword">new</span> Observer(<span class="string">'o2'</span>, s)</span><br><span class="line"></span><br><span class="line">s.setState(<span class="number">2</span>)</span><br><span class="line"><span class="comment">// o1 update, state 2</span></span><br><span class="line"><span class="comment">// o2 update, state 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h3><p><img src="https://res.cloudinary.com/dsuypttim/image/upload/v1584798447/hexo/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_15847983969106_kmofhn.png" alt="image"></p>
+<ul>
+<li>顺序访问一个集合</li>
+<li>使用者无需知道集合内部结构（封装）</li>
+</ul>
+<p>场景</p>
+<ul>
+<li>jQuery each</li>
+<li>ES6 Iterator</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Iterator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (container) &#123;</span><br><span class="line">    <span class="keyword">this</span>.list = container.list</span><br><span class="line">    <span class="keyword">this</span>.index = <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">  next () &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.hasNext()) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.list[<span class="keyword">this</span>.index++]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">  hasNext () &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.index &gt;= <span class="keyword">this</span>.list.length) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (list) &#123;</span><br><span class="line">    <span class="keyword">this</span>.list = list</span><br><span class="line">  &#125;</span><br><span class="line">  getIterator() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Itetator(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">let</span> container = <span class="keyword">new</span> Container(arr)</span><br><span class="line"><span class="keyword">let</span> iterator = container.getIterator()</span><br><span class="line">thile(iterator.hasNext()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(iterator.next())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/21/javascript-design-pattern/" data-id="ck81o6pax0000nguu37bt7ta6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/21/javascript-design-pattern/">javascript设计模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 DaMi<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
